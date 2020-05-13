@@ -11,7 +11,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-public class TestUnwrappedDeserIssue86 extends XmlTestBase
+public class NestedUnwrappedLists86Test extends XmlTestBase
 {
     @JacksonXmlRootElement(localName = "test")
     public static class Issue86 {
