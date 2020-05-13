@@ -462,15 +462,16 @@ public class FromXmlParser
     {
         JsonToken t = nextToken0();
         if (t != null) {
+            final String loc = _parsingContext.pathAsPointer().toString();
             switch (t) {
             case FIELD_NAME:
-                System.out.println("FromXmlParser.nextToken(): JsonToken.FIELD_NAME '"+_parsingContext.getCurrentName()+"'");
+                System.out.printf("FromXmlParser.nextToken() at '%s': JsonToken.FIELD_NAME '%s'\n", loc, _parsingContext.getCurrentName());
                 break;
             case VALUE_STRING:
-                System.out.println("FromXmlParser.nextToken(): JsonToken.VALUE_STRING '"+getText()+"'");
+                System.out.printf("FromXmlParser.nextToken() at '%s': JsonToken.VALUE_STRING '%s'\n", loc, getText());
                 break;
             default:
-                System.out.println("FromXmlParser.nextToken(): "+t);
+                System.out.printf("FromXmlParser.nextToken() at '%s': %s\n", loc, t);
             }
         }
         return t;
@@ -486,6 +487,7 @@ public class FromXmlParser
             JsonToken t = _nextToken;
             _currToken = t;
             _nextToken = null;
+
             switch (t) {
             case START_OBJECT:
                 _parsingContext = _parsingContext.createChildObjectContext(-1, -1);
@@ -501,7 +503,9 @@ public class FromXmlParser
                 _parsingContext.setCurrentName(_xmlTokens.getLocalName());
                 break;
             default: // VALUE_STRING, VALUE_NULL
-                // should be fine as is?
+                // 13-May-2020, tatu: [dataformat-xml#397]: advance `index` anyway; not
+                //    used for Object contexts, updated automatically by "createChildXxxContext"
+                _parsingContext.valueStarted();
             }
             return t;
         }
@@ -564,6 +568,8 @@ public class FromXmlParser
                     }
                     // 07-Sep-2019, tatu: for [dataformat-xml#353], must NOT return second null
                     if (_currToken != JsonToken.VALUE_NULL) {
+                        // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+                        _parsingContext.valueStarted();
                         return (_currToken = JsonToken.VALUE_NULL);
                     }
                 }
@@ -584,6 +590,8 @@ public class FromXmlParser
                 return (_currToken = JsonToken.FIELD_NAME);
             case XmlTokenStream.XML_ATTRIBUTE_VALUE:
                 _currText = _xmlTokens.getText();
+                // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+                _parsingContext.valueStarted();
                 return (_currToken = JsonToken.VALUE_STRING);
             case XmlTokenStream.XML_TEXT:
                 _currText = _xmlTokens.getText();
@@ -666,6 +674,8 @@ public class FromXmlParser
 
             // expected case; yes, got a String
             if (t == JsonToken.VALUE_STRING) {
+                // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+                _parsingContext.valueStarted();
                 return _currText;
             }
             _updateState(t);
@@ -715,6 +725,8 @@ public class FromXmlParser
                 // NOTE: this is different from nextToken() -- produce "", NOT null
                 _mayBeLeaf = false;
                 _currToken = JsonToken.VALUE_STRING;
+                // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+                _parsingContext.valueStarted();
                 return (_currText = "");
             }
             _currToken = _parsingContext.inArray() ? JsonToken.END_ARRAY : JsonToken.END_OBJECT;
@@ -735,6 +747,8 @@ public class FromXmlParser
             break;
         case XmlTokenStream.XML_ATTRIBUTE_VALUE:
             _currToken = JsonToken.VALUE_STRING;
+            // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+            _parsingContext.valueStarted();
             return (_currText = _xmlTokens.getText());
         case XmlTokenStream.XML_TEXT:
             _currText = _xmlTokens.getText();
@@ -748,6 +762,8 @@ public class FromXmlParser
                 }
                 // NOTE: this is different from nextToken() -- NO work-around
                 // for otherwise empty List/array
+                // 13-May-2020, tatu: [dataformat-xml#397]: advance `index`
+                _parsingContext.valueStarted();
                 _currToken = JsonToken.VALUE_STRING;
                 return _currText;
             }
