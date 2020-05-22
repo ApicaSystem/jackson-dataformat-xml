@@ -3,7 +3,9 @@ package com.fasterxml.jackson.dataformat.xml.failing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
+import org.junit.Ignore;
 
+@Ignore //dups handling from databind 2.12 is required
 public class JsonNodeMixedContent402Test extends XmlTestBase
 {
     final private ObjectMapper XML_MAPPER = newMapper();
