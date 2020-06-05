@@ -56,7 +56,7 @@ public class ListDeser314Test extends XmlTestBase
         Customer314 result = MAPPER.readValue(content, Customer314.class);
         assertNotNull(result);
     }
-
+/*
     public void testDeser314Order2() throws Exception
     {
         String content = ""
@@ -81,5 +81,5 @@ public class ListDeser314Test extends XmlTestBase
                 ;
         Address314 result = MAPPER.readValue(content, Address314.class);
         assertNotNull(result);
-    }
+    }*/
 }
