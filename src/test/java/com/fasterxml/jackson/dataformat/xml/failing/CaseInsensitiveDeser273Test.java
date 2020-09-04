@@ -7,7 +7,9 @@ import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import org.junit.Ignore;
 
+@Ignore
 public class CaseInsensitiveDeser273Test extends XmlTestBase
 {
     // [dataformat-xml#273]

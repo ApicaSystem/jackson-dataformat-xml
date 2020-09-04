@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
+import org.junit.Ignore;
 
 // related to [dataformat-xml#9] (and possibly others)
+@Ignore
 public class EnumIssue9Test extends XmlTestBase
 {
     static enum TestEnum { A, B, C; }

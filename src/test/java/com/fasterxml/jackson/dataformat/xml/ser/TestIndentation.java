@@ -11,6 +11,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class TestIndentation extends XmlTestBase
 {
+    private static final String EOL = System.lineSeparator();
+
     static class StringWrapperBean {
         public StringWrapper string;
         
@@ -153,16 +155,16 @@ public class TestIndentation extends XmlTestBase
     public void testWithAttr() throws Exception
     {
         String xml = _xmlMapper.writeValueAsString(new AttrBean());
-        assertEquals("<AttrBean count=\"3\"/>\n", xml);
+        assertEquals("<AttrBean count=\"3\"/>" + EOL, xml);
         String xml2 = _xmlMapper.writeValueAsString(new AttrBean2());
-        assertEquals("<AttrBean2 count=\"3\">\n  <value>14</value>\n</AttrBean2>\n", xml2);
+        assertEquals("<AttrBean2 count=\"3\">" + EOL + "  <value>14</value>" + EOL + "</AttrBean2>" + EOL, xml2);
     }
 
     public void testEmptyElem() throws Exception
     {
         PojoFor123 simple = new PojoFor123("foobar");
         String xml = _xmlMapper.writeValueAsString(simple);
-        assertEquals("<PojoFor123 name=\"foobar\"/>\n", xml);
+        assertEquals("<PojoFor123 name=\"foobar\"/>" + EOL, xml);
     }
 
     public void testMultiLevel172() throws Exception
@@ -175,15 +177,15 @@ public class TestIndentation extends XmlTestBase
         // unify possible apostrophes to quotes
         xml = aposToQuotes(xml);
         // with indentation, should get linefeeds in prolog/epilog too
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                +"<Company>\n"
-                +"  <e>\n"
-                +"    <employee>\n"
-                +"      <id>abc</id>\n"
-                +"      <type>FULL_TIME</type>\n"
-                +"    </employee>\n"
-                +"  </e>\n"
-                +"</Company>\n",
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + EOL
+                +"<Company>" + EOL
+                +"  <e>" + EOL
+                +"    <employee>" + EOL
+                +"      <id>abc</id>" + EOL
+                +"      <type>FULL_TIME</type>" + EOL
+                +"    </employee>" + EOL
+                +"  </e>" + EOL
+                +"</Company>" + EOL,
                 xml);
     }
 }

@@ -3,7 +3,9 @@ package com.fasterxml.jackson.dataformat.xml.failing;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
+import org.junit.Ignore;
 
+@Ignore
 public class FailingDelegatingCreator254Test extends XmlTestBase
 {
     static class Foo {

@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.dataformat.xml.*;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import org.junit.Ignore;
 
 // for [dataformat-xml#326]
+@Ignore
 public class FailingNamespace326Test extends XmlTestBase
 {
     @JacksonXmlRootElement(localName = "new")

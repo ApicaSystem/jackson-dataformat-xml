@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.dataformat.xml.*;
+import org.junit.Ignore;
 
 // for [dataformat-xml#124]
+@Ignore
 public class EmptyListDeser124Test extends XmlTestBase
 {
     public static class TestList {

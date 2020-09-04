@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.*;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import org.junit.Ignore;
 
+@Ignore
 public class Unwrapped374Test extends XmlTestBase
 {
     @JacksonXmlRootElement(localName = "Root")

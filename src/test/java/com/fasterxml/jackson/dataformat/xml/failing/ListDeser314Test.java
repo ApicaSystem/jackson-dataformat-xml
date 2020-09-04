@@ -9,8 +9,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import org.junit.Ignore;
 
 // [dataformat-xml#314]
+@Ignore
 public class ListDeser314Test extends XmlTestBase
 {
     static class Customer314 {

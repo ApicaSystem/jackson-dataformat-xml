@@ -15,6 +15,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.*;
 /**
  * @author pgelinas
  */
+@Ignore
 public class PolymorphicList97Test extends XmlTestBase
 {
     @JsonTypeInfo(property = "type", use = Id.NAME)

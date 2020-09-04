@@ -3,12 +3,13 @@ package com.fasterxml.jackson.dataformat.xml.failing;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
+import org.junit.Ignore;
 
 // for:
 //
 // [dataformat-xml#4]
 // [dataformat-xml#9] (enums)
-
+@Ignore
 public class PolymorphicIssue4Test extends XmlTestBase
 {
     /*

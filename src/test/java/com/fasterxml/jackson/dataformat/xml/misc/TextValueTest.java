@@ -12,6 +12,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.*;
 
 public class TextValueTest extends XmlTestBase
 {
+
+    private static final String EOL = System.lineSeparator();
+
     static class Simple
     {
         @JacksonXmlProperty(isAttribute=true)
@@ -103,7 +106,7 @@ public class TextValueTest extends XmlTestBase
         assertEquals("<Simple a=\"13\">something</Simple>", xml);
         // [dataformat-xml#56]: should work with indentation as well
         xml = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(new Simple());
-        assertEquals("<Simple a=\"13\">something</Simple>\n", xml);
+        assertEquals("<Simple a=\"13\">something</Simple>" + EOL, xml);
     }
 
     public void testDeserializeAsText() throws IOException

@@ -64,6 +64,10 @@ public class ListSerializationTest extends XmlTestBase
               item--;
               return Integer.toString(item);
             }
+
+            public void remove() {
+                throw new UnsupportedOperationException("remove");
+            }
           };
         }
     }

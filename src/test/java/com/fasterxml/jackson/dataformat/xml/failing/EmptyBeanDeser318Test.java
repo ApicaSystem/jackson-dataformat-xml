@@ -5,7 +5,9 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import org.junit.Ignore;
 
+@Ignore
 public class EmptyBeanDeser318Test extends XmlTestBase
 {
     static class Wrapper {

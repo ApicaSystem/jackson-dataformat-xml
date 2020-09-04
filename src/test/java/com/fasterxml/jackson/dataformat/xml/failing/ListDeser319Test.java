@@ -5,7 +5,9 @@ import java.util.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlTestBase;
+import org.junit.Ignore;
 
+@Ignore
 public class ListDeser319Test extends XmlTestBase
 {
     static class Value319 {
