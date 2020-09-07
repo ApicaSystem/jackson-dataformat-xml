@@ -1,5 +1,10 @@
 package com.fasterxml.jackson.dataformat.xml.deser;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.deser.std.CollectionDeserializer;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import java.io.IOException;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
@@ -133,5 +138,42 @@ public class XmlBeanDeserializerModifier
             return null;
         }
         return textProp;
+    }
+
+    private static class WhitespaceCollectionDeserHelper extends CollectionDeserializer {
+
+        public WhitespaceCollectionDeserHelper(CollectionDeserializer src) {
+            super(src);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Collection<Object> deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException {
+
+            JsonToken currentToken = jp.getCurrentToken();
+            if (currentToken == JsonToken.VALUE_STRING && jp.getText().matches("^[\\r\\n\\t ]+$")) {
+                return (Collection<Object>) _valueInstantiator.createUsingDefault(ctxt);
+            }
+            return super.deserialize(jp, ctxt);
+        }
+
+        @Override
+        public CollectionDeserializer createContextual(DeserializationContext ctxt,
+            BeanProperty property) throws JsonMappingException {
+            return new WhitespaceCollectionDeserHelper(super.createContextual(ctxt, property));
+        }
+    }
+
+
+    @Override
+    public JsonDeserializer<?> modifyCollectionDeserializer(DeserializationConfig config,
+        CollectionType type, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
+        if (deserializer instanceof CollectionDeserializer) {
+            return new WhitespaceCollectionDeserHelper((CollectionDeserializer) deserializer);
+        } else {
+            return super.modifyCollectionDeserializer(config, type, beanDesc,
+                deserializer);
+        }
     }
 }

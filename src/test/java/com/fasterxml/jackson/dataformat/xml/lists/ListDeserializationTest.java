@@ -1,5 +1,8 @@
 package com.fasterxml.jackson.dataformat.xml.lists;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -81,7 +84,7 @@ public class ListDeserializationTest extends XmlTestBase
     static class ListItem191 {
         @JacksonXmlProperty(isAttribute = true)
         public String name;
-    }    
+    }
 
     // [dataformat-xml#294]
     @JacksonXmlRootElement(localName = "levels")
@@ -209,6 +212,21 @@ System.out.println("List -> "+MAPPER.writeValueAsString(foo));
         assertNotNull(testList);
         assertNotNull(testList.items);
         assertEquals(3, testList.items.size());
+    }
+
+    // [dataformat-xml#191]
+    public void testListDeser191_2() throws Exception
+    {
+        final String XML =
+            "<TestList191>\n"+
+                "    <items>\n"+
+                "    </items>\n"+
+                "</TestList191>"
+            ;
+        TestList191 testList = MAPPER.readValue(XML, TestList191.class);
+        assertNotNull(testList);
+        assertNotNull(testList.items);
+        assertEquals(0, testList.items.size());
     }
 
     // [dataformat-xml#294]

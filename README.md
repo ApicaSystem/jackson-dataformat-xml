@@ -1,3 +1,13 @@
+# Apica-specific
+
+This branch (2.11.2-wsfix) contains  fixes that corrects whitespace handling inside collection tags.
+  * 2 fixes are packported from 2.12: [86](https://github.com/FasterXML/jackson-dataformat-xml/issues/86) [319](https://github.com/FasterXML/jackson-dataformat-xml/issues/319)
+  * WhitespaceCollectionDeserHelper added to XmlBeanDeserializerModifier
+  
+This lets us remove all regex-based sanitizing from out code.
+This is a temporary fix until jackson 2.12 is released.  
+
+
 # Overview
 
 This projects contains [Jackson](http://wiki.fasterxml.com/JacksonHome) extension component for
